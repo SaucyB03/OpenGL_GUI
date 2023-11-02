@@ -37,7 +37,7 @@ void Object::assignBuffandArr(){
     glBindVertexArray(0);
 
     //Enables faceculling so faces facing the other direction from the camera arent being displayed
-    glEnable(GL_CULL_FACE);
+//    glEnable(GL_CULL_FACE);
 
 //    For Testing Purposes:
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -166,6 +166,29 @@ Object::Object(glm::vec2 position, glm::vec2 scale, float rsRadius, glm::vec3 co
 
     assignBuffandArr();
 }
+
+Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, int scWidth, int scHeight){
+    this->position = position;
+    this->scale = scale;
+    this->rsRadius = 0.0;
+    this->color = color;
+    this->scWidth = scWidth;
+    this->scHeight = scHeight;
+
+    if(shape == Shape::Square){
+        generateSquare();
+    }else if(shape == Shape::Circle){
+        generateCircle();
+    }else if(shape == Shape::RoundedSquare) {
+        generateRoundedSquare();
+    }else{
+        cout<< "ERROR: Invalid Shape Entered: " << endl;
+        terminate();
+    }
+
+    assignBuffandArr();
+}
+
 
 //Destructor: deletes the created buffers
 Object::~Object() {

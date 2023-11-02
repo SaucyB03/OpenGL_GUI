@@ -4,10 +4,6 @@
 
 #include "Text.h"
 
-Text::Text() {
-
-}
-
 bool Text::initText() {
     // FreeType
     // --------
@@ -16,19 +12,20 @@ bool Text::initText() {
     if (FT_Init_FreeType(&ft))
     {
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-        return false;
+        return -1;
     }
+
     // find path to font
     std::string font_name = std::filesystem::path("resources/fonts/Antonio-Bold.ttf").string();
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
-        return false;
+        return -1;
     }
 
+    // load font as face
     FT_Face face;
-    if (FT_New_Face(ft, "../fonts/Antonio-Regular.ttf", 0, &face))
-    {
+    if (FT_New_Face(ft, "../fonts/Antonio-Regular.ttf", 0, &face)) {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
         return false;
     }
@@ -98,11 +95,15 @@ bool Text::initText() {
     return true;
 }
 
-void Text::RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color)
+Text::Text() {
+
+}
+
+void Text::RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color)
 {
     // activate corresponding render state
-    shader.bindShader();
-    shader.setVec3("textColor", color);
+    shader->bindShader();
+    glUniform3f(glGetUniformLocation(shader->program, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
 
@@ -112,8 +113,8 @@ void Text::RenderText(Shader &shader, std::string text, float x, float y, float 
     {
         Character ch = Characters[*c];
 
-        float xpos = x + ch.Bearing.x * scale;
-        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+        float xpos = loc.x + ch.Bearing.x * scale;
+        float ypos = loc.y - (ch.Size.y - ch.Bearing.y) * scale;
 
         float w = ch.Size.x * scale;
         float h = ch.Size.y * scale;
@@ -137,7 +138,7 @@ void Text::RenderText(Shader &shader, std::string text, float x, float y, float 
         // render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+        loc.x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);

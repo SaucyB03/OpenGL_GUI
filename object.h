@@ -26,11 +26,6 @@ private:
     int scWidth;
     int scHeight;
 
-
-    glm::vec2 position;
-    glm::vec2 scale;
-    glm::vec3 color;
-
     float rsRadius;
 
     //Object information for buffers
@@ -56,10 +51,15 @@ private:
     static void addVerts(vector<float> &vector, glm::vec3 info);
     static void addIndices(vector<int> &vector, glm::vec3 info);
 public:
+    glm::vec2 position;
+    glm::vec2 scale;
+    glm::vec3 color;
+
     /* Object Constructor
      * Holds info about: position, scale, velocity, color, if its dynamic / static, and the screen size
      */
     Object(glm::vec2 position, glm::vec2 scale, float rsRadius, glm::vec3 color, Shape shape, int scWidth, int scHeight);
+    Object(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, int scWidth, int scHeight);
     ~Object();
 
     /*Display

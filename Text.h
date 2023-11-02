@@ -38,7 +38,7 @@ private:
 public:
     Text();
     bool initText();
-    void RenderText(Shader &shader, std::string text, float x, float y, float scale, glm::vec3 color);
+    void RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color);
 
 };
 

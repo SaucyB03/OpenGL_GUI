@@ -127,4 +127,8 @@ void Shader::setInt(const char *variableName, int integer){
     glUniform1i(glGetUniformLocation(this->program, variableName), integer);
 }
 
+void Shader::setUniform1i(const char *variableName, int index) {
+    glUniform1i(glGetUniformLocation(this->program, variableName), index);
+}
+
 

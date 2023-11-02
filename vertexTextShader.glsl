@@ -1,8 +1,7 @@
 
 layout (location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>
-out vec2 TexCoords;
-
 uniform mat4 projection;
+out vec2 TexCoords;
 
 void main()
 {

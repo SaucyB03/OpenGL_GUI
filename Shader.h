@@ -57,6 +57,7 @@ public:
      */
     void setVec3(const char *variableName, glm::vec3 vector);
     void setInt(const char *variableName, int integer);
+    void setUniform1i(const char *variableName, int index);
 };
 
 #endif //OE43DTESTER_SHADER_H
