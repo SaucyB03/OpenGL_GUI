@@ -68,13 +68,10 @@ int main()
     texShader->setUniformMat4("projection", projection);
 
 
-    Text text;
-    if(!text.initText()){
-        return -1;
-    }
+    Text text("This is sample text", {25.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), Left);
 
-    Button* b = new Button({0.5,0}, {0.5,0.5},{0.5,0.2,0.2}, Square, 0.0, "Hello", {50, 50}, 1.5, {0.5,0.5,0.0}, false, false, SCR_WIDTH, SCR_HEIGHT);
-    Object* o = new Object({-0.5,0}, {0.5,0.5}, {0.2,0.2,0.2}, Square, SCR_WIDTH, SCR_HEIGHT);
+    Button* b = new Button({0,0}, {0.5,0.5},{0.5,0.2,0.2}, Square, 0.0, "ooolooo", {0, 0}, 1.5, {0.5,0.5,0.0}, false, false, SCR_WIDTH, SCR_HEIGHT);
+    Object* o = new Object({0.125, 0}, {0.5,0.5}, {0.2,0.2,0.2}, Square, SCR_WIDTH, SCR_HEIGHT);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -93,10 +90,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        o->display(shader);
         b->display(shader, texShader);
-        text.RenderText(texShader, "This is sample text", {25.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-        text.RenderText(texShader, "(C) LearnOpenGL.com", {600.0f, 600.0f}, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+        o->display(shader);
+
+        text.RenderText(texShader);
+//        text.RenderText(texShader, "(C) LearnOpenGL.com", {600.0f, 600.0f}, 0.5f, glm::vec3(0.3, 0.7f, 0.9f), Left);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

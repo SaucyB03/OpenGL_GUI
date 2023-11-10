@@ -50,6 +50,11 @@ private:
     //Simplifies adding vec3's to vectors<>
     static void addVerts(vector<float> &vector, glm::vec3 info);
     static void addIndices(vector<int> &vector, glm::vec3 info);
+
+protected:
+    glm::vec2 convertPixToScSp(glm::vec2 pixCoord);
+    glm::vec2 convertScSpToPix(glm::vec2 scSpCoord);
+
 public:
     glm::vec2 position;
     glm::vec2 scale;

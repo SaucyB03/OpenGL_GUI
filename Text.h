@@ -18,8 +18,13 @@
 #include "Shader.h"
 #include "map"
 #include "filesystem"
+#include "vector"
 
-
+enum Alignment{
+    Center,
+    Left,
+    Right
+};
 
 class Text {
 private:
@@ -29,16 +34,23 @@ private:
         glm::ivec2   Size;      // Size of glyph
         glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
         unsigned int Advance;   // Horizontal offset to advance to next glyph
+        float vertices[6][4];
     };
+
+    string text;
+    glm::vec2 position;
+    float scale;
+    glm::vec3 color;
+    Alignment alignment;
 
     std::map<GLchar, Character> Characters;
     unsigned int VAO, VBO;
 
-
-public:
-    Text();
+    float** generateBoundingBoxes(glm::ivec2 Size, glm::ivec2 Bearing);
     bool initText();
-    void RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color);
+public:
+    Text(std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment);
+    void RenderText(Shader* shader);
 
 };
 

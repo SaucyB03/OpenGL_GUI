@@ -141,6 +141,31 @@ void Object::addIndices(vector<int> &vector, glm::vec3 info) {
 
 }
 
+
+glm::vec2 Object::convertPixToScSp(glm::vec2 pixCoord) {
+    // Converts pixel coordinates to OpenGl's native Coordinate system (not to scale):
+//     -0.5,0.5 ---------------0.5,0.5
+//         |                       |
+//         |          0,0          |
+//         |                       |
+//    -0.5,-0.5 ---------------0.5,-0.5
+
+    glm::vec2 scalePix = pixCoord * glm::vec2{scWidth,scHeight};
+    return scalePix + glm::vec2{-0.5,-0.5};
+}
+
+glm::vec2 Object::convertScSpToPix(glm::vec2 scSpCoord) {
+//    Converts Opengl's native coords to Pixel coords (not to scale):
+//        0,scrH --------------scrW,scrH
+//         |                       |
+//         |      scrW/2,scrH/2    |
+//         |                       |
+//        0,0 ------------------crW,0
+
+    glm::vec2 cordShift = scSpCoord + glm::vec2{0.5,0.5};
+    return cordShift * glm::vec2{scWidth, scHeight};
+}
+
 //Public//////////
 /* Object Constructor
  * Holds info about: position, scale, color, and the screen size

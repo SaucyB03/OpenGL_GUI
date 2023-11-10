@@ -19,7 +19,7 @@ private:
     glm::vec2 texLoc;
     float texScale;
     glm::vec3 texCol;
-    Text physicalText;
+    Text* physicalText;
     bool toggleable;
     bool On;
 
