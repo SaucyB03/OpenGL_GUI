@@ -100,25 +100,34 @@ Text::Text() {
     initText();
 }
 
-void Text::RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment) {
+void Text::RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment[2]) {
     // activate corresponding render state
     shader->bindShader();
     glUniform3f(glGetUniformLocation(shader->program, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
 
-    float align = 0;
-    if(alignment == Center){
-        align = 0.5;
-    }else if(alignment == Right){
-        align = 1;
+    glm::vec2 align = {0,0};
+    if(alignment[0] == Center){
+        align.x = 0.5;
+    }else if(alignment[0] == Right){
+        align.x = 1;
+    }
+    if(alignment[1] == Center){
+        align.y = 0.5;
+    }else if(alignment[1] == Top){
+        align.y = 1;
     }
 
     std::string::const_iterator c;
-    float textWidth = 0;
+    float textWidth = 0, textHeight = 0;
     for(c = text.begin(); c != text.end(); c++) {
         Character ch = Characters[*c];
         textWidth += ch.Size.x + ch.Size.x/2 * scale + ch.Bearing.x * scale;
+
+        if(ch.Size.y > textHeight){
+            textHeight = ch.Size.y;
+        }
     }
 
     // iterate through all characters
@@ -126,10 +135,11 @@ void Text::RenderText(Shader* shader, std::string text, glm::vec2 loc, float sca
     {
         Character ch = Characters[*c];
 
-        float xpos = loc.x + ch.Bearing.x * scale - (textWidth * align);
-        float ypos = loc.y - (ch.Size.y - ch.Bearing.y) * scale;
+        float xpos = loc.x + ch.Bearing.x * scale - (textWidth * align.x);
+        float ypos = loc.y - (ch.Size.y - ch.Bearing.y) * scale - textHeight * align.y * scale;
 
         float w = ch.Size.x * scale;
+
         float h = ch.Size.y * scale;
         // update VBO for each character
         float vertices[6][4] = {

@@ -70,8 +70,10 @@ int main()
 
     Text text;
 
-    Button* b = new Button({0,0}, {0.5,0.5},{0.5,0.2,0.2}, Square, 0.0, "ooolooo", {0, 0}, 1.5, {0.5,0.5,0.0}, false, false, SCR_WIDTH, SCR_HEIGHT);
-    Object* o = new Object({0.125, 0}, {0.5,0.5}, {0.2,0.2,0.2}, Square, SCR_WIDTH, SCR_HEIGHT);
+    Button* b = new Button({0,0}, {0.5,0.5},{0.5,0.2,0.2}, RoundedSquare, 0.1, "8=-:-=8", {0, 0}, 1.5, {0.5,0.5,0.0},new Alignment[2]{Center, Center}, false, false, SCR_WIDTH, SCR_HEIGHT);
+    Object* o = new Object({-0.375, -0.47916666666666666666666666667 + 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
+    Object* s = new Object({0, 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -80,6 +82,7 @@ int main()
         double xPos, yPos;
         glfwGetCursorPos(window, &xPos, &yPos);
         yPos = SCR_HEIGHT - yPos;
+
 
         // input
         // -----
@@ -92,8 +95,12 @@ int main()
 
         b->display(shader, texShader);
         o->display(shader);
+        s->display(shader);
 
-        text.RenderText(texShader, "This is sample text", {25.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), Left);
+
+        text.RenderText(texShader, "8=-:-=8", {150.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), new Alignment[2]{Center, Top});
+//        text.RenderText(texShader, "This is sample text", {25.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), new Alignment[2]{Left, Bottom});
+
 //        text.RenderText(texShader, "(C) LearnOpenGL.com", {600.0f, 600.0f}, 0.5f, glm::vec3(0.3, 0.7f, 0.9f), Left);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

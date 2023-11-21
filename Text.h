@@ -23,7 +23,9 @@
 enum Alignment{
     Center,
     Left,
-    Right
+    Right,
+    Top,
+    Bottom
 };
 
 class Text {
@@ -40,7 +42,6 @@ private:
     glm::vec2 position;
     float scale;
     glm::vec3 color;
-    Alignment alignment;
 
     std::map<GLchar, Character> Characters;
     unsigned int VAO, VBO;
@@ -49,7 +50,7 @@ private:
     bool initText();
 public:
     Text();
-    void RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment);
+    void RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment[2]);
 
 };
 

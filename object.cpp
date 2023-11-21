@@ -37,7 +37,7 @@ void Object::assignBuffandArr(){
     glBindVertexArray(0);
 
     //Enables faceculling so faces facing the other direction from the camera arent being displayed
-//    glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
 //    For Testing Purposes:
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -150,7 +150,7 @@ glm::vec2 Object::convertPixToScSp(glm::vec2 pixCoord) {
 //         |                       |
 //    -0.5,-0.5 ---------------0.5,-0.5
 
-    glm::vec2 scalePix = pixCoord * glm::vec2{scWidth,scHeight};
+    glm::vec2 scalePix = pixCoord / glm::vec2{scWidth,scHeight};
     return scalePix + glm::vec2{-0.5,-0.5};
 }
 

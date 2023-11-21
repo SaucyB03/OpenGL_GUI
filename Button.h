@@ -19,7 +19,7 @@ private:
     glm::vec2 texLoc;
     float texScale;
     glm::vec3 texCol;
-    Alignment texAlign;
+    Alignment texAlign[2];
     Text* physicalText;
     bool toggleable;
     bool On;
@@ -28,7 +28,18 @@ private:
 
 public:
     Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
+           string text, glm::vec2 localTexLoc, float texScale, glm::vec3 texCol, Alignment* texAlign,
+           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+
+    Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
            string text, glm::vec2 localTexLoc, float texScale, glm::vec3 texCol,
+           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+
+    Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
+           string text, float texScale, glm::vec3 texCol, Alignment* texAlign,
+           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+
+    Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
            bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
     ~Button();
 
