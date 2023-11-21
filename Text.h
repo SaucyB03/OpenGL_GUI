@@ -34,7 +34,6 @@ private:
         glm::ivec2   Size;      // Size of glyph
         glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
         unsigned int Advance;   // Horizontal offset to advance to next glyph
-        float vertices[6][4];
     };
 
     string text;
@@ -46,11 +45,11 @@ private:
     std::map<GLchar, Character> Characters;
     unsigned int VAO, VBO;
 
-    float** generateBoundingBoxes(glm::ivec2 Size, glm::ivec2 Bearing);
+
     bool initText();
 public:
-    Text(std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment);
-    void RenderText(Shader* shader);
+    Text();
+    void RenderText(Shader* shader, std::string text, glm::vec2 loc, float scale, glm::vec3 color, Alignment alignment);
 
 };
 

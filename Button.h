@@ -19,6 +19,7 @@ private:
     glm::vec2 texLoc;
     float texScale;
     glm::vec3 texCol;
+    Alignment texAlign;
     Text* physicalText;
     bool toggleable;
     bool On;

@@ -13,7 +13,7 @@ Button::Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape
     this->toggleable = toggleable;
     this->On = defaultVal;
     this->scrPixelScale = {scrWidth, scrHeight};
-    this->physicalText = new Text(this->textStr, this->texLoc, this->texScale, this->texCol, Center);
+    this->physicalText = new Text();
 }
 
 Button::~Button() {
@@ -24,7 +24,7 @@ void Button::display(Shader* objShader, Shader* texShader) {
     this->Object::display(objShader);
 
     glm::vec2 textPosPix = convertScSpToPix(position + texLoc);
-    physicalText->RenderText(texShader);
+    physicalText->RenderText(texShader, this->textStr, textPosPix, this->texScale, this->texCol, this->texAlign);
 }
 
 bool Button::clickOnButton(glm::vec2 clickPos) {
