@@ -9,8 +9,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "Text.h"
-#include "object.h"
+#include "../Text.h"
+#include "../object.h"
 
 
 class Button : public Object {
@@ -23,29 +23,35 @@ private:
     Text* physicalText;
     bool toggleable;
     bool On;
+    bool inView;
+    bool pressed = false;
 
     glm::vec2 scrPixelScale;
+
+    glm::vec3 toggleCol = {0,0,0};
 
 public:
     Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
            string text, glm::vec2 localTexLoc, float texScale, glm::vec3 texCol, Alignment* texAlign,
-           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+           bool toggleable, bool defaultVal, bool inView, int scrWidth, int scrHeight);
 
     Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
            string text, glm::vec2 localTexLoc, float texScale, glm::vec3 texCol,
-           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+           bool toggleable, bool defaultVal, bool inView, int scrWidth, int scrHeight);
 
     Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
            string text, float texScale, glm::vec3 texCol, Alignment* texAlign,
-           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+           bool toggleable, bool defaultVal, bool inView, int scrWidth, int scrHeight);
 
     Button(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape, float rsRadius,
-           bool toggleable, bool defaultVal, int scrWidth, int scrHeight);
+           bool toggleable, bool defaultVal, bool inView, int scrWidth, int scrHeight);
     ~Button();
 
     void display(Shader* objShader, Shader* texShader);
-    bool clickOnButton(glm::vec2 clickPos);
+    bool clickOnButton(glm::vec2 clickPos, bool isPress);
 
+    bool isPressed();
+    void setPressed(bool press);
 };
 
 

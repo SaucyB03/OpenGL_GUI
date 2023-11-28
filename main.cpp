@@ -12,7 +12,7 @@
 #include "shader.h"
 #include "Text.h"
 #include "Object.h"
-#include "Button.h"
+#include "GUIElements/Button.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, Button* b, glm::vec2 mousePos);
@@ -70,9 +70,9 @@ int main()
 
     Text text;
 
-    Button* b = new Button({0,0}, {0.5,0.5},{0.5,0.2,0.2}, RoundedSquare, 0.1, "8=-:-=8", {0, 0}, 1.5, {0.5,0.5,0.0},new Alignment[2]{Center, Center}, false, false, SCR_WIDTH, SCR_HEIGHT);
-    Object* o = new Object({-0.375, -0.47916666666666666666666666667 + 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
-    Object* s = new Object({0, 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
+    Button* b = new Button({0,0}, {0.5,0.5},{0.5,0.2,0.2}, RoundedSquare, 0.1, "8=-:-=8", {0, 0}, 1.5, {0.5,0.5,0.0},new Alignment[2]{Center, Center}, false, false, true, SCR_WIDTH, SCR_HEIGHT);
+//    Object* o = new Object({-0.375, -0.47916666666666666666666666667 + 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
+//    Object* s = new Object({0, 0.125}, {0.5,0.5},0.1, {0.2,0.2,0.2}, RoundedSquare, SCR_WIDTH, SCR_HEIGHT);
 
     // render loop
     // -----------
@@ -94,14 +94,12 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         b->display(shader, texShader);
-        o->display(shader);
-        s->display(shader);
+//        o->display(shader);
+//        s->display(shader);
 
 
         text.RenderText(texShader, "8=-:-=8", {150.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), new Alignment[2]{Center, Top});
-//        text.RenderText(texShader, "This is sample text", {25.0f, 25.0f}, 1.0f, glm::vec3(0.5, 0.8f, 0.2f), new Alignment[2]{Left, Bottom});
 
-//        text.RenderText(texShader, "(C) LearnOpenGL.com", {600.0f, 600.0f}, 0.5f, glm::vec3(0.3, 0.7f, 0.9f), Left);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -120,7 +118,9 @@ void processInput(GLFWwindow *window, Button* b, glm::vec2 mousePos)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     } else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
-        b->clickOnButton(mousePos);
+        b->clickOnButton(mousePos, true);
+    } else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE){
+        b->setPressed(false);
     }
 
 }
