@@ -3,7 +3,7 @@ project(Playground)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(PROJECT_SOURCES main.cpp Shader.cpp Text.cpp object.cpp GUIElements/Button.cpp GUIElements/EnterValue.cpp)
+set(PROJECT_SOURCES main.cpp Shader.cpp Text.cpp object.cpp GUIElements/Button.cpp GUIElements/EnterValue.cpp GUI.cpp)
 
 add_executable(Playground ${PROJECT_SOURCES})
 

@@ -143,15 +143,19 @@ void Object::addIndices(vector<int> &vector, glm::vec3 info) {
 
 
 glm::vec2 Object::convertPixToScSp(glm::vec2 pixCoord) {
-    // Converts pixel coordinates to OpenGl's native Coordinate system (not to scale):
-//     -0.5,0.5 ---------------0.5,0.5
-//         |                       |
-//         |          0,0          |
-//         |                       |
-//    -0.5,-0.5 ---------------0.5,-0.5
+    // Converts GLFW input pixel coordinates to OpenGl's native Coordinate system (diagram not to scale):
+//         OpenGL Screen Space Coords:                GLFW Input Pixel Coords:
+//     -1.0,1.0 ---------------1.0,1.0            0.0,0.0 ---------------scrW,0.0
+//         |                       |                 |                       |
+//         |          0,0          |                 |      scrW/2,scrH/2    |
+//         |                       |                 |                       |
+//    -1.0,-1.0 ---------------1.0,-1.0          scrH,0.0 ---------------scrW,scrH
 
     glm::vec2 scalePix = pixCoord / glm::vec2{scWidth,scHeight};
-    return scalePix + glm::vec2{-0.5,-0.5};
+    glm::vec2 cord = scalePix + glm::vec2{-0.5,-0.5};
+    // GLFW pixel system has y increase going down, reverse of OpenGL, (Just to make it hard ofc)
+    cord.y = cord.y * -1;
+    return cord;
 }
 
 glm::vec2 Object::convertScSpToPix(glm::vec2 scSpCoord) {
@@ -200,6 +204,7 @@ Object::Object(glm::vec2 position, glm::vec2 scale, glm::vec3 color, Shape shape
     this->scWidth = scWidth;
     this->scHeight = scHeight;
 
+//    Generate the shape based on its type:
     if(shape == Shape::Square){
         generateSquare();
     }else if(shape == Shape::Circle){

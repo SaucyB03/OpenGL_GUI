@@ -13,6 +13,7 @@
 #include "../object.h"
 
 
+
 class Button : public Object {
 private:
     string textStr;
@@ -48,10 +49,12 @@ public:
     ~Button();
 
     void display(Shader* objShader, Shader* texShader);
-    bool clickOnButton(glm::vec2 clickPos, bool isPress);
+    bool clickOnButton(glm::vec2 clickPos);
 
     bool isPressed();
     void setPressed(bool press);
+
+    bool isToggleable();
 };
 
 

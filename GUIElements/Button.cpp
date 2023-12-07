@@ -50,9 +50,8 @@ void Button::display(Shader* objShader, Shader* texShader) {
     }
 }
 
-bool Button::clickOnButton(glm::vec2 clickPos, bool isPress) {
-    if(!pressed && inView){
-        pressed = isPress;
+bool Button::clickOnButton(glm::vec2 clickPos) {
+    if(inView){
         glm::vec2 covMPos = convertPixToScSp(clickPos);
 
         if(covMPos.x >= position.x - scale.x/2
@@ -81,6 +80,10 @@ bool Button::isPressed() {
 
 void Button::setPressed(bool press) {
     this->pressed = press;
+}
+
+bool Button::isToggleable() {
+    return toggleable;
 }
 
 

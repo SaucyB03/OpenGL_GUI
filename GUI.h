@@ -11,8 +11,12 @@
 
 #include "Text.h"
 #include "Shader.h"
+#include "GUIElements/Button.h"
+#include "GUIElements/EnterValue.h"
 
 #include "vector"
+#include "string"
+#include "iostream"
 
 // Per element we need:
 // location
@@ -23,14 +27,33 @@
 // Labels
 
 
-
 class GUI {
-    GUI(int ScreenWidth, int ScreenHeight);
-    bool initGUI();
-    void RenderGUI(Shader shader);
+private:
+    int scrWidth, scrHeight;
 
-    vector<bool> checkInputs();
+    int selectedIndex = -1;
+
+    vector<EnterValue*> entrVals;
+    vector<Button*> btns;
+    int currentMenuIndex = 0;
+
+    bool mPress = false;
+    int kPress = 0;
+
+    void click_callback(glm::vec2 mousePos);
+    void key_callback(int key);
+
+
+public:
+    GUI(int ScreenWidth, int ScreenHeight);
+    ~GUI();
+    void initGUI();
+    void RenderGUI(Shader* shader, Shader* textShader);
+
+    void checkInput(GLFWwindow* window);
+
 };
+
 
 
 #endif //PLAYGROUND_GUI_H
