@@ -43,7 +43,6 @@ private:
     void click_callback(glm::vec2 mousePos);
     void key_callback(int key);
 
-
 public:
     GUI(int ScreenWidth, int ScreenHeight);
     ~GUI();

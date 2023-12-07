@@ -20,6 +20,8 @@ GUI::~GUI() {
 void GUI::initGUI() {
     entrVals.push_back(new EnterValue({-0.4, 0.4}, {0.25,0.1}, {1.0,1.0,1.0}, RoundedSquare, 0.025, 0.0, {0.0,0.0,0.0}, true, scrWidth,scrHeight));
     entrVals.push_back(new EnterValue({-0.25, 0.4}, {0.25,0.1},{0.1,0.1,0.1}, RoundedSquare, 0.025, 0.0, {0.9,0.9,0.9}, true, scrWidth,scrHeight));
+    btns.push_back(new Button({0,0}, {0.25,0.1}, {1.0,1.0,1.0}, RoundedSquare, 0.025, "Button!",{0.0,0.0}, 0.5, {0.0,0.0,0.0}, new Alignment[2]{Center,Center}, true, false, true, scrWidth,scrHeight));
+    btns.push_back(new Button({-0.25,0}, {0.25,0.1}, {1.0,1.0,1.0}, RoundedSquare, 0.025, "Submit!",{0.0,0.0}, 0.5, {0.0,0.0,0.0}, new Alignment[2]{Center,Center}, false, false, true, scrWidth,scrHeight));
 }
 
 // Render call, displays each of the GUI elements
@@ -43,7 +45,6 @@ void GUI::click_callback(glm::vec2 mousePos) {
 
         if(isOver){
             selectedIndex = evInd;
-            cout << "sI: " << selectedIndex << endl;
         }
     }
 
@@ -51,10 +52,11 @@ void GUI::click_callback(glm::vec2 mousePos) {
     for(int bInd = 0; bInd < btns.size(); ++bInd){
         if(bInd == btns.size() - 1) {
             if(btns[bInd]->clickOnButton(mousePos)){
-
+                cout << "Run Submit!" << endl;
             }
         }else{
-
+            btns[bInd]->clickOnButton(mousePos);
+            cout << "Toggle!" << endl;
         }
     }
 }
@@ -101,3 +103,4 @@ void GUI::checkInput(GLFWwindow* window) {
 
 
 }
+
